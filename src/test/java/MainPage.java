@@ -14,7 +14,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 class MainPage extends PageBase {
 
-    private By loginMenuOpenButton = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div/a");
+    private By loginMenuOpenButton = By.xpath("//a[text()='Login']");
     private By loginMenuCloseBy = By.xpath("/html/body/div[2]/div/div/button");
     private By footerBy = By.xpath("//footer/div/div[3]/div[2]/div/span/span");
     private By emailInputBox = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div/form/div[1]/input");
@@ -31,6 +31,10 @@ class MainPage extends PageBase {
         return new LoginPage(this.driver); 
     }
 
+    public String loginMenuOpenButtonText() {
+        return this.waitAndReturnElement(loginMenuOpenButton).getText();
+
+    }
     
     
     public void closeLoginPane() {

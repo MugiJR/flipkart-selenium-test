@@ -2,6 +2,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.*;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
@@ -26,9 +27,14 @@ public class FlipKartSeleniumTest {
         MainPage mainPage = new MainPage(this.driver);
         mainPage.closeLoginPane();
         LoginPage loginPage = mainPage.openLogin();
-        DashboardPage dashboardPage = loginPage.login("username", "pass");
-        Assert.assertEquals(dashboardPage.getLoggedInUserName(), "Mugesh");
+        DashboardPage dashboardPage = loginPage.login("", "");
+        loginPage.logout();
+        this.driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+        System.out.println(mainPage.loginMenuOpenButtonText());
         
+        
+        //Assert.assertEquals(dashboardPage.getLoggedInUserName(), "Mugesh");
+     
     }
     
     @After
