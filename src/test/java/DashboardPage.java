@@ -1,15 +1,27 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 
 class DashboardPage extends PageBase {
 
-    private By loggedInUserName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div/div");
+    private By search = By.xpath("//input[@name='q']");
+    private By loginMenuOpenButton = By.xpath("//a[text()='Login']");
 
     public DashboardPage(WebDriver driver) {
         super(driver);
     }
 
-    public String getLoggedInUserName() {
-        return this.waitAndReturnElement(loggedInUserName).getText();
+    public Boolean isLoginButtonAvailable() {
+        boolean isLoginButtonExists = true;
+        try {
+            this.waitAndReturnElement(loginMenuOpenButton);   
+        } catch (NoSuchElementException e) {
+            isLoginButtonExists = false;
+        } catch (TimeoutException e) {
+            isLoginButtonExists = false;
+        }
+        return isLoginButtonExists;
     }
 }

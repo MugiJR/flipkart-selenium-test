@@ -33,7 +33,6 @@ class MainPage extends PageBase {
 
     public String loginMenuOpenButtonText() {
         return this.waitAndReturnElement(loginMenuOpenButton).getText();
-
     }
     
     
