@@ -1,22 +1,16 @@
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-
 import org.junit.*;
-import java.util.concurrent.TimeUnit;
 import java.lang.Thread;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-import org.openqa.selenium.support.ui.*;
-
 
 public class FlipKartSeleniumTest {
 
     private WebDriver driver;
-    private String mobileNo = "8795398541";
-    private String password = "passwordpassword";
+    private final String mobileNo = "mugeshgutsy456@gmail.com";
+    private final String password = "16864566";
 
     @Before
     public void setup() {
@@ -25,27 +19,61 @@ public class FlipKartSeleniumTest {
         driver.manage().window().maximize();
     }
 
+    // TEST CASE - Reading the page title
     @Test
-    public void validLoginTest() throws InterruptedException {  
+    public void testPageTitle() {
         MainPage mainPage = new MainPage(this.driver);
-        mainPage.closeLoginPane();
-        LoginPage loginPage = mainPage.openLogin();
-        DashboardPage dashboardPage = loginPage.login(mobileNo, password);
-        Thread.sleep(50000);
-        // LOGIN BUTTON SHOULD NOT AVAILABLE AFTER SUCCESSFUL LOGIN
-        Assert.assertFalse(dashboardPage.isLoginButtonAvailable());
+        String expectedFlipkartTitle = "Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!";
+        String actualFlipkartTitle = this.driver.getTitle();
+        System.out.println(actualFlipkartTitle);
+        Assert.assertEquals(expectedFlipkartTitle, actualFlipkartTitle);
     }
 
+    // TEST CASE - Login with valid credentials
     @Test
-    public void validLogoutTest() {
+    public void validLoginTest() {
         MainPage mainPage = new MainPage(this.driver);
         mainPage.closeLoginPane();
         LoginPage loginPage = mainPage.openLogin();
         DashboardPage dashboardPage = loginPage.login(mobileNo, password);
-        loginPage.logout();
-        this.driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
-        // LOGIN BUTTON SHOULD AVAILABLE AFTER LOGOUT
-        Assert.assertTrue(dashboardPage.isLoginButtonAvailable());
+        Assert.assertTrue(dashboardPage.isMyProfileNameVisible());
+    }
+
+    // TEST CASE - Logout
+    @Test
+    public void validLogoutTest()  {
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        LoginPage loginPage = mainPage.openLogin();
+        DashboardPage dashboardPage = loginPage.login(mobileNo, password);
+        dashboardPage.logout();
+        Assert.assertTrue(mainPage.isLoginButtonAvailableInMainPage());
+    }
+
+    // Form sending with user
+    @Test
+    public void addProductsToWishlist() {
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        LoginPage loginPage = mainPage.openLogin();
+        DashboardPage dashboardPage = loginPage.login(mobileNo, password);
+        MobilePage mobilePage = dashboardPage.openMobileListPage();
+        mobilePage.selectMobileCompany();
+        mobilePage.addMobileToWishList();
+        int totalCountInWishlist = mobilePage.getMobileWishListCount();
+        System.out.println(totalCountInWishlist);
+        Assert.assertEquals(1, totalCountInWishlist);
+    }
+
+    @Test()
+    public void testHovering()  {
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        LoginPage loginPage = mainPage.openLogin();
+        DashboardPage dashboardPage = loginPage.login(mobileNo, password);
+        dashboardPage.doHover();
+        String hoverText = dashboardPage.getHoverText();
+        Assert.assertEquals(hoverText, "Apple");
     }
     
     @After
