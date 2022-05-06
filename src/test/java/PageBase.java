@@ -21,13 +21,13 @@ class PageBase {
     
     public PageBase(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver,  100);
+        this.wait = new WebDriverWait(driver,  40);
     }
 
     public String getText(By locator) {
-        String displayedText = waitAndReturnElement(locator).getText();
+        String displayedText = this.waitAndReturnElement(locator).getText();
         if (displayedText.isEmpty()) {
-            return waitAndReturnElement(locator).getAttribute("value");
+            return this.waitAndReturnElement(locator).getAttribute("value");
         } else {
             return displayedText;
         }
@@ -50,6 +50,12 @@ class PageBase {
         actions.moveToElement(element).perform();
         return actions;
     }
-    
-   
+
+    public String getBodyText() {
+        WebElement bodyElement = this.waitAndReturnElement(By.tagName("body"));
+        return bodyElement.getText();
+    }
+
+
+
 }

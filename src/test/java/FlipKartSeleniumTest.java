@@ -1,3 +1,4 @@
+import jdk.jfr.internal.tool.Main;
 import org.junit.*;
 import java.lang.Thread;
 
@@ -17,6 +18,31 @@ public class FlipKartSeleniumTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+    }
+
+    @Test
+    public void testSearch() {
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        SearchResultPage searchResultPage = mainPage.search("Apple");
+        String bodyText = searchResultPage.getBodyText();
+        Assert.assertTrue(bodyText.contains("APPLE iPhone"));
+    }
+
+    @Test
+    public void testSearchWithMultipleInput() {
+        String[] searchQueries = {"apple mobile", "redmi", "samsung phone"};
+        String[] searchResult = {"APPLE iPhone", "REDMI", "SAMSUNG"};
+        for(int i = 0; i < searchQueries.length; i++) {
+            String searchQuery = searchQueries[i];
+            MainPage mainPage = new MainPage(this.driver);
+            mainPage.closeLoginPane();
+            SearchResultPage searchResultPage = mainPage.search(searchQuery);
+            String bodyText = searchResultPage.getBodyText();
+            Assert.assertTrue(bodyText.contains(searchResult[i]));
+        }
+
+
     }
 
     // TEST CASE - Reading the page title

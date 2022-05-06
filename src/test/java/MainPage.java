@@ -13,8 +13,8 @@ class MainPage extends PageBase {
     private By loginMenuCloseBy = By.xpath("/html/body/div[2]/div/div/button");
     private By footerBy = By.xpath("//footer/div/div[3]/div[2]/div/span/span");
     private By emailInputBox = By.xpath("/html/body/div[2]/div/div/div/div/div[2]/div/form/div[1]/input");
-    // private By searchBarTogglerBy = By.xpath("//a[@class='search-bar-toggler']/i");
-    // private By searchBarBy = By.name("search");
+    private By searchBarTogglerBy = By.xpath("//input[@name='q']");
+    private By searchBarBy = By.name("search");
     
     public MainPage(WebDriver driver) {
         super(driver);
@@ -32,7 +32,12 @@ class MainPage extends PageBase {
     
     
     public void closeLoginPane() {
-        this.waitAndReturnElement(loginMenuCloseBy).click();
+        try {
+            this.waitAndReturnElement(loginMenuCloseBy).click();
+        }
+        catch (TimeoutException ex) {
+            // No need to close anything
+        }
     }
     
     public String getFooterText() {
@@ -43,10 +48,9 @@ class MainPage extends PageBase {
         return this.waitAndReturnElement(loginMenuOpenButton).isDisplayed();
     }
     
-    // public SearchResultPage search(String searchQuery) {
-    //     this.waitAndReturnElement(searchBarTogglerBy).click();
-        
-    //     this.waitAndReturnElement(searchBarBy).sendKeys(searchQuery + "\n");
-    //     return new SearchResultPage(this.driver);
-    // }
+     public SearchResultPage search(String searchQuery) {
+         this.waitAndReturnElement(searchBarTogglerBy).sendKeys(searchQuery + Keys.ENTER);
+         this.wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[.='Filters']")));
+         return new SearchResultPage(this.driver);
+     }
 }
