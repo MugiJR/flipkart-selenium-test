@@ -56,6 +56,10 @@ class PageBase {
         return bodyElement.getText();
     }
 
+    protected void goBack() {
+        driver.navigate().back();
+    }
+
 
 
 }

@@ -1,7 +1,4 @@
-import jdk.jfr.internal.tool.Main;
 import org.junit.*;
-import java.lang.Thread;
-
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -101,6 +98,22 @@ public class FlipKartSeleniumTest {
         String hoverText = dashboardPage.getHoverText();
         Assert.assertEquals(hoverText, "Apple");
     }
+
+    @Test()
+    public void testBrowserBackButton() {
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        SearchResultPage searchResultPage;
+        String bodyText;
+        searchResultPage = mainPage.search("Samsung Galaxy Mobile");
+        bodyText = searchResultPage.getBodyText();
+        Assert.assertFalse(bodyText.contains("APPLE iPhone"));
+        searchResultPage.goBack();
+        searchResultPage = mainPage.search("apple");
+        bodyText = searchResultPage.getBodyText();
+        Assert.assertTrue(bodyText.contains("APPLE iPhone"));
+    }
+
     
     @After
     public void close() {
