@@ -2,20 +2,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-
-import java.util.concurrent.TimeUnit;
 
 class DashboardPage extends PageBase {
 
-    private By search = By.xpath("//input[@name='q']");
-    private By loginMenuOpenButton = By.xpath("//a[text()='Login']");
-    private By electronicsMenuButton = By.xpath("//span[text()='Electronics']");
-    private By hover = By.xpath("//img[@title='Flipkart']");
-    private By appleMobile = By.xpath("//a[.='Apple']");
-    private By mobiles = By.xpath("//div[text()='Mobiles']//..");
-    private By myProfileName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div[1]/div");
-    private By logoutButton = By.xpath("//div[.='Logout']/../../a");
+    private final By electronicsMenuButton = By.xpath("//span[text()='Electronics']");
+    private final By appleMobile = By.xpath("//a[.='Apple']");
+    private final By mobiles = By.xpath("//div[text()='Mobiles']//..");
+    private final By myProfileName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div[1]/div");
+    private final By logoutButton = By.xpath("//div[.='Logout']/../../a");
 
     public DashboardPage(WebDriver driver) {
         super(driver);

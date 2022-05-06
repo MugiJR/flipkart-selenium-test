@@ -1,17 +1,14 @@
-import org.openqa.selenium.WebDriver;
-import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-
 class MobilePage extends Wishlist {
 
-    private By mobilePhone = By.xpath("//h1[text()='Mi Mobiles']//..//..//..//..//div[2]//div//div//div//a//div[1]//div[3]//div//*[local-name()='svg']//*[local-name()='path']");
-    private By myProfileName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div[1]/div");
-    private By electronicsMenuButton = By.xpath("//span[text()='Electronics']");
+    private final By mobilePhone = By.xpath("//h1[text()='Mi Mobiles']//..//..//..//..//div[2]//div//div//div//a//div[1]//div[3]//div//*[local-name()='svg']//*[local-name()='path']");
+    private final By myProfileName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div[1]/div");
+    private final By electronicsMenuButton = By.xpath("//span[text()='Electronics']");
     
     public MobilePage(WebDriver driver) {
         super(driver);

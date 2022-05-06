@@ -1,14 +1,17 @@
-import org.junit.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 
 public class FlipKartSeleniumTest {
 
     private WebDriver driver;
-    private final String mobileNo = "mugeshgutsy456@gmail.com";
-    private final String password = "16864566";
+    private final String mobileNo = "lamiviw368@3dmasti.com";
+    private final String password = "passwordpassword";
 
     @Before
     public void setup() {
@@ -47,8 +50,7 @@ public class FlipKartSeleniumTest {
     public void testPageTitle() {
         MainPage mainPage = new MainPage(this.driver);
         String expectedFlipkartTitle = "Online Shopping Site for Mobiles, Electronics, Furniture, Grocery, Lifestyle, Books & More. Best Offers!";
-        String actualFlipkartTitle = this.driver.getTitle();
-        System.out.println(actualFlipkartTitle);
+        String actualFlipkartTitle = mainPage.getPageTitle();
         Assert.assertEquals(expectedFlipkartTitle, actualFlipkartTitle);
     }
 
