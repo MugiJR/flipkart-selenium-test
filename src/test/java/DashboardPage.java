@@ -23,7 +23,6 @@ class DashboardPage extends PageBase {
         this.waitAndReturnElement(mobiles).click();
         this.waitUntilElementInvisible(mobiles);
         return new MobilePage(this.driver);
-
     } 
 
     public void doHover() {
@@ -37,7 +36,6 @@ class DashboardPage extends PageBase {
         WebElement logoutButtonElement = this.waitAndReturnElement(logoutButton);
         builder.moveToElement(logoutButtonElement);
         builder.click().build().perform();
-        //this.wait.until(ExpectedConditions.invisibilityOfElementLocated(logoutButton));
         this.waitUntilElementInvisible(myProfileName);
     }
 

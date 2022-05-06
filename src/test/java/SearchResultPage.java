@@ -6,4 +6,6 @@ public class SearchResultPage extends PageBase{
     public SearchResultPage(WebDriver driver) {
         super(driver);
     }
+
+
 }

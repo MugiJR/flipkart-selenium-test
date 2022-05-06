@@ -3,12 +3,14 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 class MobilePage extends Wishlist {
 
     private final By mobilePhone = By.xpath("//h1[text()='Mi Mobiles']//..//..//..//..//div[2]//div//div//div//a//div[1]//div[3]//div//*[local-name()='svg']//*[local-name()='path']");
     private final By myProfileName = By.xpath("//*[@id='container']/div/div[1]/div[1]/div[2]/div[3]/div/div/div[1]/div");
     private final By electronicsMenuButton = By.xpath("//span[text()='Electronics']");
+    private final By priceFilter = By.xpath("//span[.='Price']/../../../div[4]/div[1]/select");
     
     public MobilePage(WebDriver driver) {
         super(driver);
@@ -31,6 +33,11 @@ class MobilePage extends Wishlist {
         } catch (TimeoutException ex) {
             return 0;
         }      
+    }
+
+    public String getFirstValueFromPriceDropdown() {
+        Select select = new Select(this.waitAndReturnElement(priceFilter));
+        return select.getOptions().get(1).getText();
     }
 
 }

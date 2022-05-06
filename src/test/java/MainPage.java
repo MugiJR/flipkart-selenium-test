@@ -9,7 +9,6 @@ class MainPage extends PageBase {
 
     private final By loginMenuOpenButton = By.xpath("//a[text()='Login']");
     private final By loginMenuCloseBy = By.xpath("/html/body/div[2]/div/div/button");
-    private final By footerBy = By.xpath("//footer/div/div[3]/div[2]/div/span/span");
     private final By searchBarTogglerBy = By.xpath("//input[@name='q']");
 
     
@@ -23,6 +22,10 @@ class MainPage extends PageBase {
         return new LoginPage(this.driver); 
     }
 
+    public DashboardPage openDashboard() {
+        return new DashboardPage(this.driver);
+    }
+
 
     public void closeLoginPane() {
         try {
@@ -32,6 +35,7 @@ class MainPage extends PageBase {
             // No need to close anything
         }
     }
+
     
 
     public Boolean isLoginButtonAvailableInMainPage() {

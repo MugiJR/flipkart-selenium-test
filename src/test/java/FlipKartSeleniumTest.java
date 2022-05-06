@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 
-public class FlipKartSeleniumTest {
+public class FlipKartSeleniumTest  {
 
     private WebDriver driver;
     private final String mobileNo = "lamiviw368@3dmasti.com";
@@ -41,8 +41,6 @@ public class FlipKartSeleniumTest {
             String bodyText = searchResultPage.getBodyText();
             Assert.assertTrue(bodyText.contains(searchResult[i]));
         }
-
-
     }
 
     // TEST CASE - Reading the page title
@@ -56,7 +54,7 @@ public class FlipKartSeleniumTest {
 
     // TEST CASE - Login with valid credentials
     @Test
-    public void validLoginTest() {
+    public void testLogin() {
         MainPage mainPage = new MainPage(this.driver);
         mainPage.closeLoginPane();
         LoginPage loginPage = mainPage.openLogin();
@@ -66,7 +64,7 @@ public class FlipKartSeleniumTest {
 
     // TEST CASE - Logout
     @Test
-    public void validLogoutTest()  {
+    public void testLogout()  {
         MainPage mainPage = new MainPage(this.driver);
         mainPage.closeLoginPane();
         LoginPage loginPage = mainPage.openLogin();
@@ -94,8 +92,7 @@ public class FlipKartSeleniumTest {
     public void testHovering()  {
         MainPage mainPage = new MainPage(this.driver);
         mainPage.closeLoginPane();
-        LoginPage loginPage = mainPage.openLogin();
-        DashboardPage dashboardPage = loginPage.login(mobileNo, password);
+        DashboardPage dashboardPage = mainPage.openDashboard();
         dashboardPage.doHover();
         String hoverText = dashboardPage.getHoverText();
         Assert.assertEquals(hoverText, "Apple");
@@ -114,6 +111,16 @@ public class FlipKartSeleniumTest {
         searchResultPage = mainPage.search("apple");
         bodyText = searchResultPage.getBodyText();
         Assert.assertTrue(bodyText.contains("APPLE iPhone"));
+    }
+
+    @Test
+    public void testDropdown(){
+        MainPage mainPage = new MainPage(this.driver);
+        mainPage.closeLoginPane();
+        DashboardPage dashboardPage = mainPage.openDashboard();
+        MobilePage mobilePage = dashboardPage.openMobileListPage();
+        mobilePage.selectMobileCompany();
+        Assert.assertTrue(mobilePage.getFirstValueFromPriceDropdown().contains("2000"));
     }
 
     
